@@ -1,0 +1,1 @@
+https://fbus-swp.azurewebsites.net/swagger/index.html
