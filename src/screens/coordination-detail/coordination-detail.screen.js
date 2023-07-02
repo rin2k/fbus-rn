@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { PERMISSIONS, RESULTS, check, request } from "react-native-permissions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import ListItem from "./component/list-item";
 import styles from "./styles";
 
@@ -27,8 +27,6 @@ const CoordinationDetailScreen = () => {
   const [data, setData] = useState([]);
   const [isEnabled, setIsEnabled] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
-
-  const nn = useSelector((sate) => sate.task.id);
 
   useEffect(() => {
     getCoordinationService(id).then((data) => {
@@ -162,7 +160,7 @@ const CoordinationDetailScreen = () => {
   return (
     <>
       <Screen>
-        <Header title={"Coordination Detail" + nn} />
+        <Header title={"Coordination Detail"} />
         <ScrollView style={styles.content}>
           <Image source={{ uri: data?.driver?.avatar }} style={styles.avatar} />
           <Pressable onPress={toggleSwitch}>
