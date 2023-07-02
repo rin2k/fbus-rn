@@ -5,7 +5,9 @@
     "baseUrl": "./",
     "paths": {
       "@/components": ["./src/components"],
+      "@/config": ["./src/config"],
       "@/constants": ["./src/constants"],
+      "@/hooks": ["./src/hooks"],
       "@/navigation": ["./src/navigation"],
       "@/redux": ["./src/redux"],
       "@/screens": ["./src/screens"],

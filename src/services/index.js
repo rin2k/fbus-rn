@@ -1,1 +1,2 @@
-export * from './coordination.service';
+export * from "./add-location.service";
+export * from "./coordination.service";
