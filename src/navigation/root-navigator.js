@@ -19,8 +19,8 @@ const RootNavigator = () => {
         //   user?.userInfor?.accessToken ? SCREENS.HOME : SCREENS.LOGIN
         // }
       >
-        {/* <Stack.Screen name={SCREENS.LOGIN} component={LoginScreen} />
-        <Stack.Screen name={SCREENS.HOME} component={HomeScreen} /> */}
+        <Stack.Screen name={SCREENS.LOGIN} component={LoginScreen} />
+        <Stack.Screen name={SCREENS.HOME} component={HomeScreen} />
         <Stack.Screen
           name={SCREENS.COORDINATION_DETAIL}
           component={CoordinationDetailScreen}

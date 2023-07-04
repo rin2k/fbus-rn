@@ -14,29 +14,40 @@ import {
 } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { PERMISSIONS, RESULTS, check, request } from "react-native-permissions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ListItem from "./component/list-item";
 import styles from "./styles";
 
 const CoordinationDetailScreen = () => {
   const dispatch = useDispatch();
   const route = useRoute();
-  // const id = route.params.id;
-  const id = 5;
+  const id = route.params.id;
 
-  const [data, setData] = useState([]);
+  const busCode = useSelector((state) => state?.task?.id);
+
+  const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
 
   useEffect(() => {
-    getCoordinationService(id).then((data) => {
-      setData(data);
+    getCoordinationService(id).then((res) => {
+      if (res.statusCode === 200) {
+        setData(res);
+        if (res.bus.code == busCode) {
+          setIsEnabled(true);
+        }
+      }
     });
   }, []);
 
   const toggleSwitch = async () => {
     if (!isEnabled) {
-      checkPermissions();
+      if (busCode) {
+        dispatch(removeTask());
+        checkPermissions();
+      } else {
+        checkPermissions();
+      }
     } else {
       setIsEnabled(false);
       dispatch(removeTask());
@@ -157,11 +168,10 @@ const CoordinationDetailScreen = () => {
     },
   ];
 
-  return (
-    <>
-      <Screen>
-        <Header title={"Coordination Detail"} />
-        <ScrollView style={styles.content}>
+  const renderContent = () => {
+    if (data)
+      return (
+        <>
           <Image source={{ uri: data?.driver?.avatar }} style={styles.avatar} />
           <Pressable onPress={toggleSwitch}>
             <Switch
@@ -205,15 +215,23 @@ const CoordinationDetailScreen = () => {
             }}
             ItemSeparatorComponent={() => <Divider />}
           />
-        </ScrollView>
+        </>
+      );
+  };
+
+  return (
+    <>
+      <Screen>
+        <Header title={"Coordination Detail"} />
+        <ScrollView style={styles.content}>{renderContent()}</ScrollView>
       </Screen>
       {isVisibleModal && (
         <QRCodeScannerPopup
           visible={isVisibleModal}
           setVisible={setIsVisibleModal}
-          onBarCodeRead={(data) => {
+          onBarCodeRead={() => {
             setIsVisibleModal(false);
-            dispatch(setTask(123));
+            dispatch(setTask(data.bus.code));
             setIsEnabled(true);
           }}
         />

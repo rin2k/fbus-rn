@@ -1,9 +1,9 @@
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInfor: {
     accessToken:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEwIiwiUm9sZSI6IkRSSVZFUiIsImV4cCI6MTY5MDUyODE2OSwiaXNzIjoiRkJ1c19TV1AiLCJhdWQiOiJGQnVzX1NXUCJ9.vAzRqigQSli0AIJnWqBJ92iImskbef7D0bPQsXeAa1s',
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEwIiwiUm9sZSI6IkRSSVZFUiIsImV4cCI6MTY5MDUyODE2OSwiaXNzIjoiRkJ1c19TV1AiLCJhdWQiOiJGQnVzX1NXUCJ9.vAzRqigQSli0AIJnWqBJ92iImskbef7D0bPQsXeAa1s",
     refreshToken: undefined,
     role: undefined,
     code: undefined,
@@ -14,7 +14,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setUserInfo: (state, action) => {
@@ -24,10 +24,8 @@ export const userSlice = createSlice({
   },
 });
 
-const {reducer, actions} = userSlice;
+const { reducer, actions } = userSlice;
 
-// export const userSelector = ({user}) => user;
-
-export const {setUserInfo} = actions;
+export const { setUserInfo } = actions;
 
 export default reducer;

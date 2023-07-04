@@ -1,12 +1,11 @@
 import { db } from "@/config";
-import { COLLECTIONS } from "@/constants";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { DATABASE_PATHS } from "@/constants";
+import { push, ref, serverTimestamp } from "firebase/database";
 
-export const addLocation = async (input) => {
-  const collectionRef = collection(db, COLLECTIONS.LOCATIONS);
-  return await addDoc(collectionRef, {
+export const addLocation = (input) => {
+  const dbRef = ref(db, DATABASE_PATHS.LOCATIONS);
+  return push(dbRef, {
     ...input,
     createdAt: serverTimestamp(),
-    uid: "unknown",
   });
 };

@@ -18,6 +18,10 @@ export const PAGE_LIMIT = 10;
 
 /** URL */
 export const GOOGLE_WEB_CLIENT_ID =
-  "737489797165-gmopsvfcnpm45qumgjt861ldvtsa7k7h.apps.googleusercontent.com";
+  "319062689013-fku6m54vf3arbhrnoiij84qb0e852o28.apps.googleusercontent.com";
 
 export const BASE_URL = "https://fbus-swp.azurewebsites.net/api/";
+
+export const DATABASE_PATHS = {
+  LOCATIONS: "locations",
+};
