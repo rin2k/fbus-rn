@@ -4,7 +4,7 @@ import Geolocation from "react-native-geolocation-service";
 import { useSelector } from "react-redux";
 
 const useLocation = () => {
-  const id = useSelector((state) => state.task.id);
+  const code = useSelector((state) => state.task.code);
   const timeoutRef = useRef(null);
   const getLocation = () => {
     // console.log("run task");
@@ -14,6 +14,7 @@ const useLocation = () => {
           const inputObj = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
+            code,
           };
 
           addLocation(inputObj)
@@ -28,13 +29,13 @@ const useLocation = () => {
   };
 
   useEffect(() => {
-    if (id) {
+    if (code) {
       getLocation();
     }
     return () => {
       clearTimeout(timeoutRef.current);
     };
-  }, [id]);
+  }, [code]);
 };
 
 export default useLocation;

@@ -229,9 +229,14 @@ const CoordinationDetailScreen = () => {
         <QRCodeScannerPopup
           visible={isVisibleModal}
           setVisible={setIsVisibleModal}
-          onBarCodeRead={() => {
+          onBarCodeRead={(qrData) => {
             setIsVisibleModal(false);
-            dispatch(setTask(data.bus.code));
+            dispatch(
+              setTask({
+                id: data.bus.code,
+                code: qrData?.data,
+              })
+            );
             setIsEnabled(true);
           }}
         />

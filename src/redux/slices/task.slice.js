@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   id: undefined,
+  code: undefined,
 };
 
 export const taskSlice = createSlice({
@@ -9,7 +10,8 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {
     setTask: (state, action) => {
-      state.id = action.payload;
+      state.id = action.payload.id;
+      state.code = action.payload.code;
     },
     removeTask: (state) => {
       state = { ...initialState };
