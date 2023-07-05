@@ -1,6 +1,5 @@
 import { Button, Screen } from "@/components";
 import { GOOGLE_WEB_CLIENT_ID, SCREENS } from "@/constants";
-import { setUserInfo } from "@/redux";
 import { authService } from "@/services";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useNavigation } from "@react-navigation/native";
@@ -33,7 +32,7 @@ const LoginScreen = () => {
               // dispatch(setUserInfo(res.data));
               navigation.reset({
                 index: 0,
-                routes: [{ name: SCREENS.HOME }],
+                routes: [{ name: SCREENS.MAIN_BOTTOM_TAB }],
               });
             } else {
               alert("Unauthorized");

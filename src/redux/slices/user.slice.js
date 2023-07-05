@@ -21,11 +21,15 @@ export const userSlice = createSlice({
       state.userInfo = action.payload;
       state.isLoggedIn = true;
     },
+    removeUser: (state) => {
+      state = { ...initialState };
+      return state;
+    },
   },
 });
 
 const { reducer, actions } = userSlice;
 
-export const { setUserInfo } = actions;
+export const { setUserInfo, removeUser } = actions;
 
 export default reducer;

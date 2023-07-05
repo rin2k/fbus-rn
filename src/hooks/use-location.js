@@ -16,7 +16,6 @@ const useLocation = () => {
             longitude: position.coords.longitude,
             code,
           };
-
           addLocation(inputObj)
             .then((data) => {})
             .catch((error) => {});
