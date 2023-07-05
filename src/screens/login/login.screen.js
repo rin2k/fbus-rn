@@ -7,6 +7,7 @@ import React from "react";
 import { View } from "react-native";
 import { useDispatch } from "react-redux";
 import styles from "./styles";
+import { setUserInfo } from "@/redux";
 
 GoogleSignin.configure({
   webClientId: GOOGLE_WEB_CLIENT_ID,
@@ -27,14 +28,15 @@ const LoginScreen = () => {
       });
       if (userInfo?.idToken) {
         authService(userInfo.idToken)
-          .then((res) => {
+          .then(async (res) => {
             if (res.statusCode === 200) {
-              // dispatch(setUserInfo(res.data));
+              dispatch(setUserInfo(res));
               navigation.reset({
                 index: 0,
                 routes: [{ name: SCREENS.MAIN_BOTTOM_TAB }],
               });
             } else {
+              await GoogleSignin.signOut();
               alert("Unauthorized");
             }
           })
