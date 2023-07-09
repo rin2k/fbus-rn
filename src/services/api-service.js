@@ -3,7 +3,7 @@ import { store } from "@/redux";
 import axios from "axios";
 
 const TIME_OUT = 90000;
-
+// cau hinh axios by Intercreptor: de bao mat
 export const publicAxios = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -70,3 +70,4 @@ protectedAxios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+//thac mac

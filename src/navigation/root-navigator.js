@@ -16,9 +16,9 @@ const RootNavigator = () => {
         screenOptions={{
           headerShown: false,
         }}
-        // initialRouteName={
-        //   user?.userInfor?.accessToken ? SCREENS.MAIN_BOTTOM_TAB : SCREENS.LOGIN
-        // }
+        initialRouteName={
+          user?.userInfor?.accessToken ? SCREENS.MAIN_BOTTOM_TAB : SCREENS.LOGIN
+        }
       >
         <Stack.Screen name={SCREENS.LOGIN} component={LoginScreen} />
         <Stack.Screen

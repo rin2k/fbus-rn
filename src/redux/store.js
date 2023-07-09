@@ -6,7 +6,7 @@ import rootReducer from "./root-reducer";
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["user", "task"],
+  whitelist: ["task", "driver"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -16,6 +16,7 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false,
     }),
+  // thac mac có cần dùng không.
 });
 
 export default store;

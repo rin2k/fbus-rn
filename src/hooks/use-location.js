@@ -24,7 +24,7 @@ const useLocation = () => {
       (error) => {},
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
-    timeoutRef.current = setTimeout(getLocation, 2000);
+    timeoutRef.current = setTimeout(getLocation, 15000);
   };
 
   useEffect(() => {
@@ -38,3 +38,5 @@ const useLocation = () => {
 };
 
 export default useLocation;
+
+//thac mac

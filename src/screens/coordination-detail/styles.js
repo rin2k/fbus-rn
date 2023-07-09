@@ -25,5 +25,7 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 30,
     textTransform: 'uppercase',
+    fontWeight: 'bold',
+    fontSize: 18
   },
 });

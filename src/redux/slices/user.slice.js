@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   userInfor: {
     accessToken:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEwIiwiUm9sZSI6IkRSSVZFUiIsImV4cCI6MTY5MDUyODE2OSwiaXNzIjoiRkJ1c19TV1AiLCJhdWQiOiJGQnVzX1NXUCJ9.vAzRqigQSli0AIJnWqBJ92iImskbef7D0bPQsXeAa1s",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJSb2xlIjoiQWRtaW4iLCJleHAiOjE2OTEzMDM0ODEsImlzcyI6IkZCdXNfU1dQIiwiYXVkIjoiRkJ1c19TV1AifQ.vXkop_kEtzEEx3BD-3gT5E4EEVivpMSHNLJ3VChOYGs",
     refreshToken: undefined,
     role: undefined,
     code: undefined,
@@ -18,7 +18,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUserInfo: (state, action) => {
-      state.userInfo = action.payload;
+      state.userInfor = action.payload;
       state.isLoggedIn = true;
     },
     removeUser: (state) => {

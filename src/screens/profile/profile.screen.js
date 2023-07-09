@@ -1,12 +1,16 @@
 import { Button, Header, Screen } from "@/components";
-import { SCREENS } from "@/constants";
+import { Images, SCREENS } from "@/constants";
 import { removeTask, removeUser } from "@/redux";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { Alert, View } from "react-native";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { Alert, View, Image, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles";
+import ListItem from "./components/list-item";
+import { FlatList } from "react-native-gesture-handler";
+import { getCoordinationService } from "@/services";
+import moment from "moment";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -30,6 +34,44 @@ const ProfileScreen = () => {
     } catch (error) {}
   };
 
+  const dataUser = useSelector((state) => state?.driver);
+  
+
+
+  const userInfo = useSelector((state) => state?.user);
+
+  const UserData = [
+    {
+      lable: "Full Name",
+      value: dataUser.fullName,
+    },
+    {
+      lable: "Date of birth",
+      value: dataUser?.dateOfBirth
+      ? moment(dataUser?.dateOfBirth).format("DD-MM-YYYY")
+      : null,
+    },
+    {
+      lable: "Phone Number",
+      value: dataUser.phoneNumber,
+    },
+    
+    {
+      lable: "Address",
+      value: dataUser.address,
+    },
+    
+    {
+      lable: "Gender",
+      value: dataUser.gender,
+    },
+
+    {
+      lable: "Role",
+      value: userInfo.userInfor.role,
+    },
+  ];
+
   const handleLogout = () => {
     Alert.alert("Alert", "Are you sure you want to logout?", [
       {
@@ -49,8 +91,24 @@ const ProfileScreen = () => {
   return (
     <Screen>
       <Header backVisible={false} title={"Profile"} />
-      <View style={styles.container}>
-        <Button title={"Logout"} block onPress={handleLogout} />
+      <View style={{ alignContent: "center", alignItems: "center", paddingVertical : 30 }}>
+        <Image
+          style={styles.image}
+          source={{ uri: userInfo.userInfor.picture }}
+        />
+      </View>
+
+        <FlatList
+          data={UserData}
+          renderItem={({ item }) => {
+            return <ListItem lable={item.lable} value={item.value} />;
+          }}
+        />
+
+
+      <View style={{alignItems: "center", marginBottom: 20}}>
+        <Button  title={"Logout"}  onPress={handleLogout} />
+      
       </View>
     </Screen>
   );
