@@ -1,5 +1,5 @@
 import { Divider, Header, QRCodeScannerPopup, Screen } from "@/components";
-import { removeTask, setTask, setDriverInfo } from "@/redux";
+import { removeTask, setDriverInfo, setTask } from "@/redux";
 import { getCoordinationService } from "@/services";
 import { useRoute } from "@react-navigation/native";
 import moment from "moment";
@@ -22,9 +22,8 @@ const CoordinationDetailScreen = () => {
   const dispatch = useDispatch();
   const route = useRoute();
   const id = route.params.id;
-  // const id = 6
-  const busCode = useSelector((state) => state?.task?.id);
-  //get id ở state hiện tại
+  const routeId = route.params.routeId;
+  const task = useSelector((state) => state?.task);
 
   const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
@@ -37,15 +36,14 @@ const CoordinationDetailScreen = () => {
           if (res && res.driver) {
             dispatch(setDriverInfo(res.driver));
           }
-          
+
           setData(res);
-          if (res.bus.code === busCode) {
+          const codeCheck = `${res?.bus?.code + "-" + res?.bus?.licensePlate}`;
+          if (codeCheck == task?.code) {
             setIsEnabled(true);
           }
           // check ID để dùng 1 QR dc bật ở 1 detail coor
         }
-
-       
       })
       .catch((error) => {
         // Xử lý lỗi ở đây
@@ -53,11 +51,9 @@ const CoordinationDetailScreen = () => {
       });
   }, []);
 
- 
-
   const toggleSwitch = async () => {
     if (!isEnabled) {
-      if (busCode) {
+      if (task.code) {
         dispatch(removeTask());
         checkPermissions();
       } else {
@@ -243,32 +239,24 @@ const CoordinationDetailScreen = () => {
       {isVisibleModal && (
         <QRCodeScannerPopup
           visible={isVisibleModal}
-          try
           setVisible={setIsVisibleModal}
           onBarCodeRead={(qrData) => {
             try {
-              // if(qrData.data !== '160dcd3c557a6d99f3a5a8da80be1a51f4aa772f'){
-              const dataLicense = JSON.parse(qrData.data);
-              
-              const licensePlate = dataLicense.licensePlate;
-              const busCode = dataLicense.code
-              console.log(id)
-              console.log(data?.bus?.code)
-              //Parse qrData  JSon
-              // console.log(data?.bus?.licensePlate)
-              if (licensePlate === data?.bus?.licensePlate && busCode === data?.bus?.code) {
-                //check license to use QR valid
-                // console.log(qrData.data);
+              const code = JSON.parse(qrData?.data);
+              const codeCheck = `${
+                data?.bus?.code + "-" + data?.bus?.licensePlate
+              }`;
+              if (code == codeCheck) {
                 setIsVisibleModal(false);
+
                 dispatch(
                   setTask({
-                    id: data.bus.code,
-                    code: qrData?.data,
+                    busId: data.bus.id,
+                    code: code,
+                    routeId: routeId,
                   })
                 );
                 setIsEnabled(true);
-              } else {
-                alert("fail");
               }
             } catch (error) {
               setIsVisibleModal(false);

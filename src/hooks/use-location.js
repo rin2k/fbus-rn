@@ -4,19 +4,18 @@ import Geolocation from "react-native-geolocation-service";
 import { useSelector } from "react-redux";
 
 const useLocation = () => {
-  const code = useSelector((state) => state.task.code);
+  const busId = useSelector((state) => state.task.busId);
+  const routeId = useSelector((state) => state.task.routeId);
   const timeoutRef = useRef(null);
   const getLocation = () => {
-    // console.log("run task");
     Geolocation.getCurrentPosition(
       (position) => {
         try {
           const inputObj = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            code,
           };
-          addLocation(inputObj)
+          addLocation(routeId, busId, inputObj)
             .then((data) => {})
             .catch((error) => {});
         } catch (error) {}
@@ -28,13 +27,13 @@ const useLocation = () => {
   };
 
   useEffect(() => {
-    if (code) {
+    if (busId) {
       getLocation();
     }
     return () => {
       clearTimeout(timeoutRef.current);
     };
-  }, [code]);
+  }, [busId]);
 };
 
 export default useLocation;

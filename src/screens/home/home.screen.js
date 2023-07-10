@@ -14,7 +14,7 @@ const HomeScreen = () => {
   useEffect(() => {
     getCoordinationsService()
       .then((res) => {
-        console.log(res)
+        console.log(res);
         if (res.statusCode === 200) {
           setCoordinations(res.data);
         }
@@ -23,12 +23,11 @@ const HomeScreen = () => {
         console.log("Err:", JSON.stringify(error));
       });
   }, []);
-  
 
   const onPressItem = (item) => {
     navigation.navigate(SCREENS.COORDINATION_DETAIL, {
-      id: item.busId,
-     
+      id: item.id,
+      routeId: item.routeId,
       //mang theo ID qua màn hình detail
     });
   };

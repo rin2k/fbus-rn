@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: undefined,
+  busId: undefined,
   code: undefined,
+  routeId: undefined,
 };
 
 export const taskSlice = createSlice({
@@ -10,8 +11,8 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {
     setTask: (state, action) => {
-      state.id = action.payload.id;
-      state.code = action.payload.code;
+      state = action.payload;
+      return state;
     },
     removeTask: (state) => {
       state = { ...initialState };
