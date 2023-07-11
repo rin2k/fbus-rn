@@ -1,8 +1,9 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+import { colors } from "@/styles";
 
-const ListItem = props => {
-  const {label, value} = props;
+const ListItem = (props) => {
+  const { label, value } = props;
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
@@ -13,15 +14,15 @@ const ListItem = props => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     padding: 10,
   },
   label: {
-    color: 'white',
+    color: colors.black,
   },
   value: {
-    color: 'white',
+    color: colors.black,
   },
 });
 

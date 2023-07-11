@@ -1,14 +1,13 @@
-import { Button, Screen, LoadingOverlay } from "@/components";
-import { GOOGLE_WEB_CLIENT_ID, SCREENS } from "@/constants";
+import { Button, LoadingOverlay, Screen } from "@/components";
+import { GOOGLE_WEB_CLIENT_ID, Images, SCREENS } from "@/constants";
+import { removeUser, setUserInfo } from "@/redux";
 import { authService } from "@/services";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import styles from "./styles";
-import { setUserInfo } from "@/redux";
-import { removeTask, removeUser } from "@/redux";
 
 GoogleSignin.configure({
   webClientId: GOOGLE_WEB_CLIENT_ID,
@@ -30,7 +29,7 @@ const LoginScreen = () => {
         showPlayServicesUpdateDialog: true,
       });
       if (userInfo?.idToken) {
-        console.log(userInfo?.idToken)
+        console.log(userInfo?.idToken);
         authService(userInfo.idToken)
           .then(async (res) => {
             setIsLogin(true);
@@ -45,7 +44,7 @@ const LoginScreen = () => {
                   routes: [{ name: SCREENS.MAIN_BOTTOM_TAB }],
                 });
               }, 2000);
-            } else { 
+            } else {
               await GoogleSignin.signOut();
               dispatch(removeUser());
               alert("Không được phép truy cập");
@@ -63,9 +62,12 @@ const LoginScreen = () => {
   }
 
   return (
-    <Screen withImageBlur>
+    <Screen>
       <View style={styles.container}>
-        <Button title={"Đăng nhập"} block onPress={handleLogin} />
+        <Image source={Images.location} style={styles.logo} />
+        <Text style={styles.welcome}>Welcome</Text>
+
+        <Button title={"Login"} block size={"large"} onPress={handleLogin} />
       </View>
     </Screen>
   );

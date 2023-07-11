@@ -2,12 +2,17 @@ import { STATUS_BAR_HEIGHT } from "@/constants";
 import { colors, fontSizes, fonts } from "@/styles";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import LinearGradient from "react-native-linear-gradient";
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
 
 const Header = (props) => {
-  const { title, onBackPress, backVisible = true } = props;
+  const { title, onBackPress, backVisible = true, rightComponent } = props;
   const navigation = useNavigation();
 
   const handleBack = () => {
@@ -20,10 +25,8 @@ const Header = (props) => {
 
   return (
     <>
-      <LinearGradient
-        colors={[colors.primary, colors.secondary]}
-        style={styles.linearGradient}
-      >
+      <StatusBar barStyle={"light-content"} />
+      <View style={styles.linearGradient}>
         <TouchableOpacity
           onPress={handleBack}
           disabled={!backVisible}
@@ -36,8 +39,8 @@ const Header = (props) => {
         <Text numberOfLines={1} style={styles.title}>
           {title}
         </Text>
-        <View style={styles.rightLeftContainer} />
-      </LinearGradient>
+        <View style={styles.rightLeftContainer}>{rightComponent}</View>
+      </View>
     </>
   );
 };
@@ -51,6 +54,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingTop: STATUS_BAR_HEIGHT,
     paddingHorizontal: 12,
+    backgroundColor: colors.primary,
   },
   title: {
     flex: 4,

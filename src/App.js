@@ -13,7 +13,11 @@ const RootApp = () => {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <StatusBar backgroundColor={"transparent"} translucent />
+      <StatusBar
+        backgroundColor={"transparent"}
+        translucent
+        barStyle={"dark-content"}
+      />
       <SafeAreaProvider>
         <RootNavigator />
       </SafeAreaProvider>

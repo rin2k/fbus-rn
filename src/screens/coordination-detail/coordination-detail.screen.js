@@ -11,6 +11,7 @@ import {
   Pressable,
   ScrollView,
   Text,
+  View,
 } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { PERMISSIONS, RESULTS, check, request } from "react-native-permissions";
@@ -184,15 +185,6 @@ const CoordinationDetailScreen = () => {
       return (
         <>
           <Image source={{ uri: data?.driver?.avatar }} style={styles.avatar} />
-          <Pressable onPress={toggleSwitch}>
-            <Switch
-              disabled
-              thumbColor={"white"}
-              trackColor={"green"}
-              ios_backgroundColor={"red"}
-              value={isEnabled}
-            />
-          </Pressable>
           <FlatList
             scrollEnabled={false}
             ListHeaderComponent={() => (
@@ -233,7 +225,22 @@ const CoordinationDetailScreen = () => {
   return (
     <>
       <Screen>
-        <Header title={"Coordination Detail"} />
+        <Header
+          title={"Coordination Detail"}
+          rightComponent={
+            <>
+              <Pressable onPress={toggleSwitch}>
+                <Switch
+                  disabled
+                  thumbColor={"white"}
+                  trackColor={"green"}
+                  ios_backgroundColor={"red"}
+                  value={isEnabled}
+                />
+              </Pressable>
+            </>
+          }
+        />
         <ScrollView style={styles.content}>{renderContent()}</ScrollView>
       </Screen>
       {isVisibleModal && (

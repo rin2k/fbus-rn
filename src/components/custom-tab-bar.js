@@ -1,4 +1,4 @@
-import { colors } from "@/styles";
+import { colors, fonts } from "@/styles";
 import { TabActions } from "@react-navigation/native";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -54,7 +54,9 @@ const CustomTabBar = (props) => {
 
           return (
             <Pressable onPress={onPressTab} key={index} style={styles.tab}>
-              <Text style={[{ color: colorText }]}>{tabs[index].label}</Text>
+              <Text style={[styles.title, { color: colorText }]}>
+                {tabs[index].label}
+              </Text>
             </Pressable>
           );
         })}
@@ -77,6 +79,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     alignItems: "center",
     justifyContent: "flex-end",
+  },
+  title: {
+    fontFamily: fonts.medium,
   },
 });
 
