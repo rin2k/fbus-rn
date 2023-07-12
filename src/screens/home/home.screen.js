@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import ListItem from "./component/list-item";
 import styles from "./styles";
+import { all } from "axios";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -17,9 +18,12 @@ const HomeScreen = () => {
         console.log(res);
         if (res.statusCode === 200) {
           setCoordinations(res.data);
+        } else {
+          alert("Internal server error");
         }
       })
       .catch((error) => {
+        alert("Internal server error");
         console.log("Err:", JSON.stringify(error));
       });
   }, []);

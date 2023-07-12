@@ -11,9 +11,10 @@ const Button = (props) => {
     uppercase,
     size = "medium",
     style,
+    iconLeft,
   } = props;
 
-  const backgroundColor = colors.primary;
+  const backgroundColor = colors.secondary;
   const buttonSizes = {
     small: {
       height: 30,
@@ -37,24 +38,27 @@ const Button = (props) => {
   };
 
   return (
-    <View style={[!block && styles.block, style]}>
-      <TouchableOpacity
-        onPress={handleOnPress}
-        style={[styles.container, buttonSizes[size], { backgroundColor }]}
-      >
-        <Text
-          style={[
-            styles.title,
-            uppercase && { textTransform: "uppercase" },
-            {
-              color: colorText,
-            },
-          ]}
+    <>
+      <View style={[!block && styles.block, style]}>
+        <TouchableOpacity
+          onPress={handleOnPress}
+          style={[styles.container, buttonSizes[size], { backgroundColor }]}
         >
-          {title}
-        </Text>
-      </TouchableOpacity>
-    </View>
+          {iconLeft && <View style={styles.iconLeft}>{iconLeft}</View>}
+          <Text
+            style={[
+              styles.title,
+              uppercase && { textTransform: "uppercase" },
+              {
+                color: colorText,
+              },
+            ]}
+          >
+            {title}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 };
 
@@ -71,6 +75,9 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontFamily: fonts.medium,
+  },
+  iconLeft: {
+    marginRight: 12,
   },
 });
 

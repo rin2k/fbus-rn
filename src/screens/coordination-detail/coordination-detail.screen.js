@@ -25,6 +25,7 @@ const CoordinationDetailScreen = () => {
   const id = route.params.id;
   const routeId = route.params.routeId;
   const task = useSelector((state) => state?.task);
+  const userRole = useSelector((state) => state?.user?.userInfor?.role);
 
   const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
@@ -44,9 +45,12 @@ const CoordinationDetailScreen = () => {
             setIsEnabled(true);
           }
           // check ID để dùng 1 QR dc bật ở 1 detail coor
+        } else {
+          alert("Internal server error");
         }
       })
       .catch((error) => {
+        alert("Internal server error");
         // Xử lý lỗi ở đây
         console.error("Error in getCoordinationService:", error);
       });
@@ -185,17 +189,19 @@ const CoordinationDetailScreen = () => {
       return (
         <>
           <Image source={{ uri: data?.driver?.avatar }} style={styles.avatar} />
-          <FlatList
-            scrollEnabled={false}
-            ListHeaderComponent={() => (
-              <Text style={styles.headerSection}>Information Driver</Text>
-            )}
-            data={driveInfor}
-            renderItem={({ item }) => {
-              return <ListItem label={item.label} value={item.value} />;
-            }}
-            ItemSeparatorComponent={() => <Divider />}
-          />
+          {userRole == "admin" && (
+            <FlatList
+              scrollEnabled={false}
+              ListHeaderComponent={() => (
+                <Text style={styles.headerSection}>Information Driver</Text>
+              )}
+              data={driveInfor}
+              renderItem={({ item }) => {
+                return <ListItem label={item.label} value={item.value} />;
+              }}
+              ItemSeparatorComponent={() => <Divider />}
+            />
+          )}
           <FlatList
             scrollEnabled={false}
             ListHeaderComponent={() => (

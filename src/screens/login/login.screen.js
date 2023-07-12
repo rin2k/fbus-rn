@@ -50,9 +50,12 @@ const LoginScreen = () => {
               alert("Không được phép truy cập");
             }
           })
-          .catch((error) => {});
+          .catch((error) => {
+            alert("Internal server error");
+          });
       }
     } catch (error) {
+      // alert("Internal server error");
       console.log(error);
     }
   };
@@ -66,8 +69,22 @@ const LoginScreen = () => {
       <View style={styles.container}>
         <Image source={Images.location} style={styles.logo} />
         <Text style={styles.welcome}>Welcome</Text>
-
-        <Button title={"Login"} block size={"large"} onPress={handleLogin} />
+        <Button
+          iconLeft={
+            <Image
+              source={Images.ic_google}
+              resizeMode={"center"}
+              style={{
+                width: 24,
+                height: 24,
+              }}
+            />
+          }
+          title={"Login"}
+          block
+          size={"large"}
+          onPress={handleLogin}
+        />
       </View>
     </Screen>
   );
