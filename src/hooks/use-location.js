@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const useLocation = () => {
   const busId = useSelector((state) => state.task.busId);
   const routeId = useSelector((state) => state.task.routeId);
+  const code = useSelector((state) => state.task.code);
   const timeoutRef = useRef(null);
   const getLocation = () => {
     Geolocation.getCurrentPosition(
@@ -15,9 +16,7 @@ const useLocation = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           };
-          addLocation(routeId, busId, inputObj)
-            .then((data) => {})
-            .catch((error) => {});
+          addLocation(routeId, busId, inputObj, code);
         } catch (error) {}
       },
       (error) => {},

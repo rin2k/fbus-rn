@@ -11,7 +11,6 @@ import {
   Pressable,
   ScrollView,
   Text,
-  View,
 } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { PERMISSIONS, RESULTS, check, request } from "react-native-permissions";
@@ -184,23 +183,50 @@ const CoordinationDetailScreen = () => {
     },
   ];
 
+  const onBarCode = (qrData) => {
+    try {
+      const code = JSON.parse(qrData?.data);
+      const codeCheck = `${data?.bus?.code + "-" + data?.bus?.licensePlate}`;
+      if (code == codeCheck) {
+        setIsVisibleModal(false);
+
+        dispatch(
+          setTask({
+            busId: data.bus.id,
+            code: code,
+            routeId: routeId,
+          })
+        );
+        setIsEnabled(true);
+      }
+    } catch (error) {
+      setIsVisibleModal(false);
+      alert("Not valid, please check again!");
+    }
+  };
+
   const renderContent = () => {
     if (data)
       return (
         <>
-          <Image source={{ uri: data?.driver?.avatar }} style={styles.avatar} />
           {userRole == "admin" && (
-            <FlatList
-              scrollEnabled={false}
-              ListHeaderComponent={() => (
-                <Text style={styles.headerSection}>Information Driver</Text>
-              )}
-              data={driveInfor}
-              renderItem={({ item }) => {
-                return <ListItem label={item.label} value={item.value} />;
-              }}
-              ItemSeparatorComponent={() => <Divider />}
-            />
+            <>
+              <Image
+                source={{ uri: data?.driver?.avatar }}
+                style={styles.avatar}
+              />
+              <FlatList
+                scrollEnabled={false}
+                ListHeaderComponent={() => (
+                  <Text style={styles.headerSection}>Information Driver</Text>
+                )}
+                data={driveInfor}
+                renderItem={({ item }) => {
+                  return <ListItem label={item.label} value={item.value} />;
+                }}
+                ItemSeparatorComponent={() => <Divider />}
+              />
+            </>
           )}
           <FlatList
             scrollEnabled={false}
@@ -254,27 +280,7 @@ const CoordinationDetailScreen = () => {
           visible={isVisibleModal}
           setVisible={setIsVisibleModal}
           onBarCodeRead={(qrData) => {
-            try {
-              const code = JSON.parse(qrData?.data);
-              const codeCheck = `${
-                data?.bus?.code + "-" + data?.bus?.licensePlate
-              }`;
-              if (code == codeCheck) {
-                setIsVisibleModal(false);
-
-                dispatch(
-                  setTask({
-                    busId: data.bus.id,
-                    code: code,
-                    routeId: routeId,
-                  })
-                );
-                setIsEnabled(true);
-              }
-            } catch (error) {
-              setIsVisibleModal(false);
-              alert("Not valid, please check again!");
-            }
+            onBarCode(qrData);
           }}
         />
       )}
