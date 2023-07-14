@@ -16,7 +16,7 @@ const useLocation = () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           };
-          addLocation(routeId, busId, inputObj, code);
+          addLocation(routeId, busId, inputObj);
         } catch (error) {}
       },
       (error) => {},
