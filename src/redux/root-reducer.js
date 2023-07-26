@@ -1,12 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { driverReducer, taskReducer, userReducer } from "./slices";
+import { appReducer, driverReducer, taskReducer, userReducer } from "./slices";
 
 const rootReducer = combineReducers({
   user: userReducer,
   task: taskReducer,
   driver: driverReducer,
-
-  // thac mac
+  app: appReducer,
 });
-  
+
 export default rootReducer;

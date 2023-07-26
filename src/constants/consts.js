@@ -21,7 +21,7 @@ export const GOOGLE_WEB_CLIENT_ID =
   //  "319062689013-cdihi913kdsejuvh7e44b6do4k5c3clo.apps.googleusercontent.com"
   "319062689013-fku6m54vf3arbhrnoiij84qb0e852o28.apps.googleusercontent.com";
 
-export const BASE_URL = "https://fbus-final.azurewebsites.net/api/";
+export const BASE_URL = `${"https://fbus-last.azurewebsites.net/"}api/`;
 
 export const DATABASE_PATHS = {
   LOCATIONS: "locations",

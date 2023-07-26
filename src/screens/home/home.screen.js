@@ -15,7 +15,7 @@ const HomeScreen = () => {
   useEffect(() => {
     getCoordinationsService()
       .then((res) => {
-        console.log(res);
+        console.log(JSON.stringify(res));
         if (res.statusCode === 200) {
           setCoordinations(res.data);
         } else {

@@ -1,5 +1,9 @@
 import { SCREENS } from "@/constants";
-import { CoordinationDetailScreen, LoginScreen } from "@/screens";
+import {
+  CoordinationDetailScreen,
+  LoginScreen,
+  TripStatusesScreen,
+} from "@/screens";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
@@ -28,6 +32,10 @@ const RootNavigator = () => {
         <Stack.Screen
           name={SCREENS.COORDINATION_DETAIL}
           component={CoordinationDetailScreen}
+        />
+        <Stack.Screen
+          name={SCREENS.TRIP_STATUSES}
+          component={TripStatusesScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

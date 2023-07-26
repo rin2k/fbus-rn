@@ -1,7 +1,15 @@
-import { Divider, Header, QRCodeScannerPopup, Screen } from "@/components";
+import {
+  Button,
+  CustomModal,
+  Divider,
+  Header,
+  InputField,
+  QRCodeScannerPopup,
+  Screen,
+} from "@/components";
 import { removeTask, setDriverInfo, setTask } from "@/redux";
 import { getCoordinationService } from "@/services";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import {
@@ -11,14 +19,21 @@ import {
   Pressable,
   ScrollView,
   Text,
+  TextInput,
+  View,
 } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import { PERMISSIONS, RESULTS, check, request } from "react-native-permissions";
 import { useDispatch, useSelector } from "react-redux";
 import ListItem from "./component/list-item";
 import styles from "./styles";
+import * as Yup from "yup";
+import Icon from "react-native-vector-icons/AntDesign";
+import { useFormik } from "formik";
+import { SCREENS } from "@/constants";
 
 const CoordinationDetailScreen = () => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const route = useRoute();
   const id = route.params.id;
@@ -33,6 +48,7 @@ const CoordinationDetailScreen = () => {
   useEffect(() => {
     getCoordinationService(id)
       .then((res) => {
+        console.log(JSON.stringify(res));
         if (res.statusCode === 200) {
           if (res && res.driver) {
             dispatch(setDriverInfo(res.driver));
@@ -205,6 +221,62 @@ const CoordinationDetailScreen = () => {
     }
   };
 
+  const onPressStation = (item) => {
+    const tripId = item?.routeId;
+    const stationId = item?.stationId;
+
+    navigation.navigate(SCREENS.TRIP_STATUSES, {
+      item,
+    });
+  };
+
+  const renderStation = () => {
+    return (
+      <FlatList
+        scrollEnabled={false}
+        ItemSeparatorComponent={() => <Divider />}
+        ListHeaderComponent={() => (
+          <Text style={styles.headerSection}>Station</Text>
+        )}
+        data={data?.route?.routeStations}
+        renderItem={({ item }) => {
+          return (
+            <>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  margin: 10,
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Image
+                    source={{ uri: item?.station?.image }}
+                    style={{
+                      width: 50,
+                      height: 50,
+                      backgroundColor: "grey",
+                      marginRight: 12,
+                    }}
+                  />
+                  <Text>{item?.station?.code}</Text>
+                </View>
+                <Pressable
+                  onPress={() => {
+                    onPressStation(item);
+                  }}
+                >
+                  <Icon name="edit" size={24} />
+                </Pressable>
+              </View>
+            </>
+          );
+        }}
+      />
+    );
+  };
+
   const renderContent = () => {
     if (data)
       return (
@@ -250,6 +322,7 @@ const CoordinationDetailScreen = () => {
             }}
             ItemSeparatorComponent={() => <Divider />}
           />
+          {renderStation()}
         </>
       );
   };

@@ -7,12 +7,12 @@ const ListItem = (props) => {
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text style={styles.busCode}>{data.busCode}</Text>
+      <Text style={styles.busCode}>{data?.bus?.code}</Text>
       <Text style={styles.destination}>
         <Icon name="arrow-circle-right" size={16} color={colors.black} />{" "}
-        {data.destination}
+        {data?.route?.destination}
       </Text>
-      <Text style={styles.beginning}>{data.beginning}</Text>
+      <Text style={styles.beginning}>{data?.route?.beginning}</Text>
     </TouchableOpacity>
   );
 };

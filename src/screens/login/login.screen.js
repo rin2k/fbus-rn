@@ -29,7 +29,6 @@ const LoginScreen = () => {
         showPlayServicesUpdateDialog: true,
       });
       if (userInfo?.idToken) {
-        console.log(userInfo?.idToken);
         authService(userInfo.idToken)
           .then(async (res) => {
             setIsLogin(true);

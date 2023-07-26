@@ -39,10 +39,15 @@ const Button = (props) => {
 
   return (
     <>
-      <View style={[!block && styles.block, style]}>
+      <View style={[!block && styles.block]}>
         <TouchableOpacity
           onPress={handleOnPress}
-          style={[styles.container, buttonSizes[size], { backgroundColor }]}
+          style={[
+            styles.container,
+            buttonSizes[size],
+            { backgroundColor },
+            style,
+          ]}
         >
           {iconLeft && <View style={styles.iconLeft}>{iconLeft}</View>}
           <Text
