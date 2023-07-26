@@ -1,12 +1,12 @@
 import { Images } from "@/constants";
 import PropTypes from "prop-types";
 import React from "react";
-import { ImageBackground, StyleSheet } from "react-native";
+import { ImageBackground, StyleSheet, View } from "react-native";
 
 const Screen = (props) => {
   const { children, withImageBlur } = props;
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       {withImageBlur ? (
         <ImageBackground
           source={Images.background}
@@ -18,7 +18,7 @@ const Screen = (props) => {
       ) : (
         children
       )}
-    </>
+    </View>
   );
 };
 

@@ -331,7 +331,7 @@ const CoordinationDetailScreen = () => {
     <>
       <Screen>
         <Header
-          title={"Coordination Detail"}
+          title={"Trip Detail"}
           rightComponent={
             <>
               <Pressable onPress={toggleSwitch}>

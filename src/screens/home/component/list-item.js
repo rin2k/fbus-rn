@@ -9,10 +9,13 @@ const ListItem = (props) => {
     <TouchableOpacity onPress={onPress} style={styles.container}>
       <Text style={styles.busCode}>{data?.bus?.code}</Text>
       <Text style={styles.destination}>
-        <Icon name="arrow-circle-right" size={16} color={colors.black} />{" "}
+        <Icon name="arrow-circle-right" size={25} color={colors.black} />
         {data?.route?.destination}
       </Text>
-      <Text style={styles.beginning}>{data?.route?.beginning}</Text>
+      <Text style={styles.beginning}>
+        <Icon name="flag" size={25} color={colors.black} />
+        {data?.route?.beginning}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -27,9 +30,11 @@ const styles = StyleSheet.create({
   },
   beginning: {
     fontFamily: fonts.medium,
+    fontSize: 20,
   },
   destination: {
     fontFamily: fonts.medium,
+    fontSize: 20,
   },
   busCode: {
     fontFamily: fonts.medium,

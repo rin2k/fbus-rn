@@ -4,7 +4,7 @@ import React from "react";
 const InputField = (props) => {
   const { label, errorText, ...rest } = props;
   return (
-    <View>
+    <View style={{ flexDirection: "column", flex: 1 }}>
       <Text style={styles.label}>{label}</Text>
       <TextInput style={styles.input} {...rest} />
       {errorText && <Text style={styles.error}>{errorText}</Text>}
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "grey",
     borderRadius: 8,
-    marginBottom: 10,
+    // marginBottom: 10,
     paddingHorizontal: 12,
   },
   error: {

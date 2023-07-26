@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { Image, Text, View } from "react-native";
 import { useDispatch } from "react-redux";
 import styles from "./styles";
+import { useLoading } from "@/hooks";
 
 GoogleSignin.configure({
   webClientId: GOOGLE_WEB_CLIENT_ID,
@@ -19,8 +20,8 @@ GoogleSignin.configure({
 const LoginScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [isLogin, setIsLogin] = useState(false);
-  const [showLoading, setShowLoading] = useState(false);
+
+  const { showLoading, hideLoading } = useLoading();
 
   const handleLogin = async () => {
     try {
@@ -28,15 +29,17 @@ const LoginScreen = () => {
       const userInfo = await GoogleSignin.signIn({
         showPlayServicesUpdateDialog: true,
       });
+      console.log(userInfo.idToken)
       if (userInfo?.idToken) {
         authService(userInfo.idToken)
           .then(async (res) => {
-            setIsLogin(true);
+            
             console.log(res);
+            showLoading()
             if (res.statusCode === 200) {
               dispatch(setUserInfo(res));
-              setIsLogin(false);
-              setShowLoading(true);
+              
+              hideLoading();
               setTimeout(() => {
                 navigation.reset({
                   index: 0,
@@ -46,6 +49,7 @@ const LoginScreen = () => {
             } else {
               await GoogleSignin.signOut();
               dispatch(removeUser());
+              hideLoading();
               alert("Không được phép truy cập");
             }
           })
@@ -59,9 +63,7 @@ const LoginScreen = () => {
     }
   };
 
-  if (showLoading) {
-    return <LoadingOverlay />;
-  }
+  
 
   return (
     <Screen>

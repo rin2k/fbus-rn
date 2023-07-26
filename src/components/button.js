@@ -14,7 +14,7 @@ const Button = (props) => {
     iconLeft,
   } = props;
 
-  const backgroundColor = colors.secondary;
+  const backgroundColor = colors.primary;
   const buttonSizes = {
     small: {
       height: 30,

@@ -11,11 +11,13 @@ const useLocation = () => {
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
+        console.log("asdadas")
         try {
           const inputObj = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           };
+            console.log("dasdasdas111111")
           addLocation(routeId, busId, inputObj);
         } catch (error) {}
       },

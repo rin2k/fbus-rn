@@ -39,31 +39,11 @@ const ProfileScreen = () => {
 
 
   const userInfo = useSelector((state) => state?.user);
-
+  console.log(userInfo)
   const UserData = [
     {
-      lable: "Full Name",
-      value: dataUser.fullName,
-    },
-    {
-      lable: "Date of birth",
-      value: dataUser?.dateOfBirth
-      ? moment(dataUser?.dateOfBirth).format("DD-MM-YYYY")
-      : null,
-    },
-    {
-      lable: "Phone Number",
-      value: dataUser.phoneNumber,
-    },
-    
-    {
-      lable: "Address",
-      value: dataUser.address,
-    },
-    
-    {
-      lable: "Gender",
-      value: dataUser.gender,
+      lable: "Code",
+      value: userInfo.userInfor.code,
     },
 
     {
@@ -107,8 +87,7 @@ const ProfileScreen = () => {
 
 
       <View style={{alignItems: "center", marginBottom: 20}}>
-        <Button  title={"Logout"}  onPress={handleLogout} />
-      
+        <Button   title={"Logout"} onPress={handleLogout} />
       </View>
     </Screen>
   );

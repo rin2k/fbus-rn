@@ -11,7 +11,7 @@ export const addLocation = (routeId, busId, input) => {
         // DocumentId tồn tại, thực hiện cập nhật
         return update(dbRef, {
           ...input,
-          // updatedAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
         });
       } else {
         // DocumentId không tồn tại, thực hiện thêm mới

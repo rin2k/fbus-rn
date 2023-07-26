@@ -16,5 +16,5 @@ export function addTripStatusesService(tripId, stationId, countUp, countDown) {
     dataSend.CountDown = countDown;
   }
 
-  return protectedAxios.post(url, dataSend);
+  return protectedAxios.post(url, dataSend, {headers: {"Content-Type": 'multipart/form-data'}});
 }
