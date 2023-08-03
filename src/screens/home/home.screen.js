@@ -28,8 +28,6 @@ const HomeScreen = () => {
               });
             }
 
-       
-            
             setCoordinations(newArr);
           } else {
             alert("Internal server error");
@@ -45,19 +43,25 @@ const HomeScreen = () => {
   }, [navigation]);
 
   const onPressItem = (item) => {
+    const fitlerOngoingArr = coordinations.filter(
+      (e) => e?.status == "ONGOING"
+    );
 
-
-    const fitlerOngoingArr = coordinations.filter((e)=> e?.bus?.status == "ONGOING")
+    const enableToogle = () => {
+      if (item.status == "ONGOING") {
+        return true;
+      } else if (fitlerOngoingArr.length !== 0) {
+        return false;
+      } else {
+        return true;
+      }
+    };
 
     navigation.navigate(SCREENS.COORDINATION_DETAIL, {
       id: item.id,
       routeId: item.routeId,
-     // 
-      showToogle : fitlerOngoingArr.length !== 0 ? true : false,
-      //
-      checkToogle: item?.bus?.status =="ONGOING" ? true : false
 
-      //mang theo ID qua màn hình detail
+      hideToggle: enableToogle(),
     });
   };
 

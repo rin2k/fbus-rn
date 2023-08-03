@@ -8,7 +8,11 @@ import {
   Screen,
 } from "@/components";
 import { removeTask, setDriverInfo, setTask } from "@/redux";
-import { addTripStatusesService, getCoordinationService, removeLocation } from "@/services";
+import {
+  addTripStatusesService,
+  getCoordinationService,
+  removeLocation,
+} from "@/services";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import moment from "moment";
 import React, { useEffect, useMemo, useState } from "react";
@@ -41,27 +45,30 @@ const CoordinationDetailScreen = () => {
   const task = useSelector((state) => state?.task);
   const userRole = useSelector((state) => state?.user?.userInfor?.role);
 
+  const hideToggle = route.params.hideToggle;
+
+  console.log(hideToggle);
+
   const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [stationId, setStationId] = useState();
-  const [busId,setBusId] = useState();
+  const [busId, setBusId] = useState();
+
   // console.log("ID");
   // console.log(id);
-
-  console.log(route.params)
 
   useEffect(() => {
     getCoordinationService(id)
       .then((res) => {
-        console.log(JSON.stringify(res));
+        // console.log(JSON.stringify(res));
         if (res.statusCode === 200) {
           if (res && res.driver) {
             dispatch(setDriverInfo(res.driver));
           }
-          setData(res);       
-          setStationId(res.route.routeStations[0].stationId)
-          setBusId(res.bus.id)
+          setData(res);
+          setStationId(res.route.routeStations[0].stationId);
+          setBusId(res.bus.id);
           const codeCheck = `${res?.bus?.code + "-" + res?.bus?.licensePlate}`;
 
           if (codeCheck == task?.code) {
@@ -86,8 +93,6 @@ const CoordinationDetailScreen = () => {
   // console.log("Route ID")
   // console.log(routeId)
   const toggleSwitch = async () => {
-    
-
     if (!isEnabled) {
       if (task.code) {
         dispatch(removeTask());
@@ -98,7 +103,7 @@ const CoordinationDetailScreen = () => {
     } else {
       setIsEnabled(false);
       addTripStatusesService(id, stationId, 0, 0, false);
-      removeLocation(routeId,busId)
+      removeLocation(routeId, busId);
       dispatch(removeTask());
     }
   };
@@ -251,8 +256,8 @@ const CoordinationDetailScreen = () => {
       tripId: id,
     });
   };
-  console.log("stationId")
-  console.log(stationId)
+  // console.log("stationId");
+  // console.log(stationId);
   const renderStation = () => {
     return (
       <FlatList
@@ -361,7 +366,7 @@ const CoordinationDetailScreen = () => {
           title={"Trip Detail"}
           rightComponent={
             <>
-              <Pressable onPress={toggleSwitch}>
+              <Pressable onPress={toggleSwitch} disabled={hideToggle}>
                 <Switch
                   disabled
                   thumbColor={"white"}

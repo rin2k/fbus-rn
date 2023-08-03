@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userInfor: {
-    accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjQiLCJSb2xlIjoiRHJpdmVyIiwiZXhwIjoxNjkxMDY4OTI1LCJpc3MiOiJGQnVzX1NXUCIsImF1ZCI6IkZCdXNfU1dQIn0.pqjkGdMYkSmIdZ7490c_F_G4jx4A8BMsLb9nTech3oQ",
+    accessToken:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjQiLCJSb2xlIjoiRHJpdmVyIiwiZXhwIjoxNjkxMDY5NzE0LCJpc3MiOiJGQnVzX1NXUCIsImF1ZCI6IkZCdXNfU1dQIn0.hnBSMAuk2Yst_fa9xGSn7GoT4-qfBmylN1nP3y1-Akw",
     // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjIiLCJSb2xlIjoiQWRtaW4iLCJleHAiOjE2OTEzMDM0ODEsImlzcyI6IkZCdXNfU1dQIiwiYXVkIjoiRkJ1c19TV1AifQ.vXkop_kEtzEEx3BD-3gT5E4EEVivpMSHNLJ3VChOYGs",
     refreshToken: undefined,
     role: undefined,
