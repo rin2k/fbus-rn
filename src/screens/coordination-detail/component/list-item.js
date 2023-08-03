@@ -20,9 +20,11 @@ const styles = StyleSheet.create({
   },
   label: {
     color: colors.black,
+    fontWeight: "bold"
   },
   value: {
     color: colors.black,
+    
   },
 });
 

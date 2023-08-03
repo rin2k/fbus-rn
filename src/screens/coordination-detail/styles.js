@@ -19,12 +19,13 @@ export default StyleSheet.create({
     marginTop: 30,
   },
   headerSection: {
-    backgroundColor: colors.secondary,
+    backgroundColor: '#3295FF',
     paddingVertical: 10,
     paddingHorizontal: 10,
     marginTop: 30,
     textTransform: "uppercase",
     fontWeight: "bold",
     fontSize: 18,
+    color: 'black'
   },
 });

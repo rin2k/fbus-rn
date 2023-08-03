@@ -8,10 +8,10 @@ import {
   Screen,
 } from "@/components";
 import { removeTask, setDriverInfo, setTask } from "@/redux";
-import { getCoordinationService } from "@/services";
+import { addTripStatusesService, getCoordinationService, removeLocation } from "@/services";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Alert,
   FlatList,
@@ -44,6 +44,12 @@ const CoordinationDetailScreen = () => {
   const [data, setData] = useState();
   const [isEnabled, setIsEnabled] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [stationId, setStationId] = useState();
+  const [busId,setBusId] = useState();
+  // console.log("ID");
+  // console.log(id);
+
+  console.log(route.params)
 
   useEffect(() => {
     getCoordinationService(id)
@@ -53,9 +59,11 @@ const CoordinationDetailScreen = () => {
           if (res && res.driver) {
             dispatch(setDriverInfo(res.driver));
           }
-
-          setData(res);
+          setData(res);       
+          setStationId(res.route.routeStations[0].stationId)
+          setBusId(res.bus.id)
           const codeCheck = `${res?.bus?.code + "-" + res?.bus?.licensePlate}`;
+
           if (codeCheck == task?.code) {
             setIsEnabled(true);
           }
@@ -71,7 +79,15 @@ const CoordinationDetailScreen = () => {
       });
   }, []);
 
+  // console.log("SADASDGSAHGDJSAHG")
+  // console.log(JSON.stringify(data));
+  // console.log("Bus ID")
+  // console.log(busId)
+  // console.log("Route ID")
+  // console.log(routeId)
   const toggleSwitch = async () => {
+    
+
     if (!isEnabled) {
       if (task.code) {
         dispatch(removeTask());
@@ -81,6 +97,8 @@ const CoordinationDetailScreen = () => {
       }
     } else {
       setIsEnabled(false);
+      addTripStatusesService(id, stationId, 0, 0, false);
+      removeLocation(routeId,busId)
       dispatch(removeTask());
     }
   };
@@ -205,7 +223,7 @@ const CoordinationDetailScreen = () => {
       const codeCheck = `${data?.bus?.code + "-" + data?.bus?.licensePlate}`;
       if (code == codeCheck) {
         setIsVisibleModal(false);
-
+        addTripStatusesService(id, stationId, 0, 0, true);
         dispatch(
           setTask({
             busId: data.bus.id,
@@ -214,6 +232,9 @@ const CoordinationDetailScreen = () => {
           })
         );
         setIsEnabled(true);
+      } else {
+        navigation.goBack();
+        alert("Not permission to drive!");
       }
     } catch (error) {
       setIsVisibleModal(false);
@@ -227,9 +248,11 @@ const CoordinationDetailScreen = () => {
 
     navigation.navigate(SCREENS.TRIP_STATUSES, {
       item,
+      tripId: id,
     });
   };
-
+  console.log("stationId")
+  console.log(stationId)
   const renderStation = () => {
     return (
       <FlatList
@@ -260,14 +283,18 @@ const CoordinationDetailScreen = () => {
                       marginRight: 12,
                     }}
                   />
-                  <Text>{item?.station?.code}</Text>
+                  <Text
+                    style={{ fontWeight: "bold", color: "black", fontSize: 25 }}
+                  >
+                    {item?.station?.code}
+                  </Text>
                 </View>
                 <Pressable
                   onPress={() => {
                     onPressStation(item);
                   }}
                 >
-                  <Icon name="edit" size={24} />
+                  <Icon name="edit" size={24} color="blue" />
                 </Pressable>
               </View>
             </>

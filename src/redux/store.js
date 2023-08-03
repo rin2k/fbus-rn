@@ -6,7 +6,7 @@ import rootReducer from "./root-reducer";
 const persistConfig = {
   key: "root",
   storage: AsyncStorage,
-  whitelist: ["task", "driver", "user"],
+  whitelist: ["task", "driver"],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 

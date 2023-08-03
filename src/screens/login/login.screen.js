@@ -29,6 +29,7 @@ const LoginScreen = () => {
       const userInfo = await GoogleSignin.signIn({
         showPlayServicesUpdateDialog: true,
       });
+      console.log("ID Token")
       console.log(userInfo.idToken)
       if (userInfo?.idToken) {
         authService(userInfo.idToken)
@@ -54,7 +55,7 @@ const LoginScreen = () => {
             }
           })
           .catch((error) => {
-            alert("Internal server error");
+          
           });
       }
     } catch (error) {
@@ -69,7 +70,7 @@ const LoginScreen = () => {
     <Screen>
       <View style={styles.container}>
         <Image source={Images.location} style={styles.logo} />
-        <Text style={styles.welcome}>Welcome</Text>
+        <Text style={styles.welcome}>Welcome to F-Bus</Text>
         <Button
           iconLeft={
             <Image

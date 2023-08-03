@@ -12,8 +12,14 @@ const TripStatusesScreen = () => {
   const route = useRoute();
   const { showLoading, hideLoading } = useLoading();
   const navigation = useNavigation();
-  const tripId = route.params.item?.id;
+  const tripId = route.params.tripId;
   const stationId = route.params.item.stationId;
+  
+
+  console.log("TripID")
+  console.log(tripId)
+  console.log("StationId")
+  console.log(stationId)
 
   const initialValues = {
     countUp: undefined,
@@ -48,6 +54,7 @@ const TripStatusesScreen = () => {
           values.countUp,
           values.countDown
         )
+        
           .then((data) => {
             if (data.statusCode === 200) {
               hideLoading();
@@ -60,6 +67,7 @@ const TripStatusesScreen = () => {
           .catch((error) => {
             hideLoading();
             alert("Err");
+            console.log(error)
           });
       }
     },
@@ -98,11 +106,15 @@ const TripStatusesScreen = () => {
         style={{
           padding: 20,
         }}
-      >
+      > 
+      <View>
+         <Text style={styles.label}>Count up</Text>
+      </View>
         <View style={styles.row}>
+         
           <InputField
-            label={"Count up"}
             value={values.countUp}
+            inputStyle={styles.input}
             onChangeText={(text) => {
               setFieldValue("countUp", text);
               setFieldTouched("countUp", true, false);
@@ -111,16 +123,20 @@ const TripStatusesScreen = () => {
             placeholder={"Enter count up"}
             keyboardType={"numeric"}
           />
-          <Pressable onPress={onPlusPress} style={styles.iconButton}>
-            <Icon name="plus" size={30} color="white" />
-          </Pressable>
         </View>
-        <View style={styles.spacer} />
+        <Pressable onPress={onPlusPress} style={styles.iconButton}>
+          <Icon name="plus" size={30} color="white" />
+        </Pressable>
 
+        <View style={styles.spacer} />
+        <View>
+         <Text style={styles.label}>Count up</Text>
+      </View>
         <View style={styles.row}>
+        
           <InputField
-            label={"Count down"}
             value={values.countDown}
+            inputStyle={styles.input}
             onChangeText={(text) => {
               setFieldValue("countDown", text);
               setFieldTouched("countDown", true, false);
@@ -131,10 +147,11 @@ const TripStatusesScreen = () => {
             placeholder={"Enter count down"}
             keyboardType={"numeric"}
           />
-          <Pressable onPress={onMinusPress} style={styles.iconButton}>
-            <Icon name="minus" size={30} color="white" />
-          </Pressable>
         </View>
+        <Pressable onPress={onMinusPress} style={styles.iconButtonMinus}>
+          <Icon name="minus" size={30} color="white" />
+        </Pressable>
+
         <View style={styles.spacer} />
         <Button onPress={onSubmit} block title={"Submit"} />
       </View>
@@ -145,20 +162,43 @@ const TripStatusesScreen = () => {
 export default TripStatusesScreen;
 
 const styles = StyleSheet.create({
+  label: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    color: 'black'
+  },
+  input: {
+    fontSize: 20,
+    marginTop: 5,
+    marginBottom: 10,
+  },
   iconButton: {
+    marginTop: 20,
     backgroundColor: "green",
-    width: 45,
-    height: 45,
+    width: 200,
+    height: 150,
     alignItems: "center",
     justifyContent: "center",
-    alignSelf: "flex-end",
+    alignSelf: "center",
+    borderRadius: 10,
+    marginLeft: 10,
+  },
+  iconButtonMinus: {
+    marginTop: 20,
+    backgroundColor: "#F60C30",
+    width: 200,
+    height: 150,
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
     borderRadius: 10,
     marginLeft: 10,
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   spacer: {
     marginBottom: 20,

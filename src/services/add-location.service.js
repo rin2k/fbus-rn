@@ -1,6 +1,6 @@
 import { db } from "@/config";
 import { DATABASE_PATHS } from "@/constants";
-import { get, ref, serverTimestamp, set, update } from "firebase/database";
+import { get, ref, remove, serverTimestamp, set, update } from "firebase/database";
 
 export const addLocation = (routeId, busId, input) => {
   const dbRef = ref(db, `${DATABASE_PATHS.LOCATIONS}/${routeId}/${busId}`);
@@ -26,3 +26,22 @@ export const addLocation = (routeId, busId, input) => {
       console.log("Err:", error);
     });
 };
+
+export const removeLocation = (routeId, busId) => {
+  const dbRef = ref(db, `${DATABASE_PATHS.LOCATIONS}/${routeId}/${busId}`);
+
+  return get(dbRef)
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log('If')
+        return remove (dbRef);
+      }else{
+        console.log('ELSE')
+      }
+    })
+    .catch((error) => {
+      console.log("Err:", error);
+      console.log('Catch')
+    });
+};
+

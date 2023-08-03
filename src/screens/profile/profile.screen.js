@@ -11,6 +11,7 @@ import ListItem from "./components/list-item";
 import { FlatList } from "react-native-gesture-handler";
 import { getCoordinationService } from "@/services";
 import moment from "moment";
+import SupportButton from "./components/support-button";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -42,6 +43,10 @@ const ProfileScreen = () => {
   console.log(userInfo)
   const UserData = [
     {
+      lable: "Name",
+      value: userInfo.userInfor.name,
+    },
+    {
       lable: "Code",
       value: userInfo.userInfor.code,
     },
@@ -70,7 +75,7 @@ const ProfileScreen = () => {
   };
   return (
     <Screen>
-      <Header backVisible={false} title={"Profile"} />
+      <Header backVisible={false} title={"PROFILE"} />
       <View style={{ alignContent: "center", alignItems: "center", paddingVertical : 30 }}>
         <Image
           style={styles.image}
@@ -89,6 +94,10 @@ const ProfileScreen = () => {
       <View style={{alignItems: "center", marginBottom: 20}}>
         <Button   title={"Logout"} onPress={handleLogout} />
       </View>
+
+      <Screen>
+        <SupportButton/>
+      </Screen>
     </Screen>
   );
 };

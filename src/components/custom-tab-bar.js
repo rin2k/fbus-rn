@@ -13,10 +13,10 @@ const CustomTabBar = (props) => {
 
   const tabs = [
     {
-      label: "Home",
+      label: "HOME",
     },
     {
-      label: "Profile",
+      label: "PROFILE",
     },
   ];
 

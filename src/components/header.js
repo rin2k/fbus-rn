@@ -47,7 +47,7 @@ const Header = (props) => {
 
 const styles = StyleSheet.create({
   linearGradient: {
-    height: STATUS_BAR_HEIGHT + 60,
+    height: STATUS_BAR_HEIGHT + 40,
     paddingBottom: 5,
     flexDirection: "row",
     alignItems: "center",

@@ -21,5 +21,8 @@ export default StyleSheet.create({
     fontFamily: fonts.medium,
     marginTop: 30,
     marginBottom: 100,
+    color: 'black',
+    fontWeight: "bold",
+    fontSize: 50
   },
 });

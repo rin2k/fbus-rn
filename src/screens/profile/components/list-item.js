@@ -18,15 +18,15 @@ export default ListItem
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 8,
-        margin: 16
+        margin: 16,
     },
     text: {
         fontSize:18,
-        color: '#72063c',
+        color: 'blue',
         fontWeight: 'bold',
     },
     value: {
-        color: '#72063c',
+        color: 'black',
         fontSize: 18,
         fontWeight: 'bold'
     }
